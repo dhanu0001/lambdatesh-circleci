@@ -53,4 +53,4 @@ jobs:
             # fallback to using the latest cache if no exact match is found
 
       - run: npm install
-      - run: node_modules/.bin/nightwatch -e chrome // Executing test in bash.
+      - run: node_modules/.bin/nightwatch -e chrome
