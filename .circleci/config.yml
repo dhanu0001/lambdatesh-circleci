@@ -1,26 +1,64 @@
-# Use the latest 2.1 version of CircleCI pipeline process engine.
-# See: https://circleci.com/docs/2.0/configuration-reference
 version: 2.1
+orbs:
+  lambda-tunnel: lambdatest/lambda-tunnel@1.0.5
 
-# Define a job to be invoked later in a workflow.
-# See: https://circleci.com/docs/2.0/configuration-reference/#jobs
+
+parameters:
+  lambdatest_email:
+        description: Specify your LambdaTest email
+        type: string
+        default: "dhanu.devops9907@gmail.com"
+  lambdatest_key:
+        description: Specify environment var holding LambdaTest Access Key
+        type: string
+        default: "Rzh6Gt65tlWUzxdpP8lyOppCtKqfhZQezv57ibO8j1MMJ2Pyng"
+  # docker:
+  #     type: string
+  #     default: ""
+
+
+commands:
+  install-tunnel-binary:
+    steps:
+      - run: 
+          name: "Download and Extract tunnel binary"
+          command: |
+            wget http://downloads.lambdatest.com/tunnel/linux/64bit/LT_Linux.zip
+            sudo apt-get install unzip
+            unzip LT_Linux.zip
+            rm LT_Linux.zip
+            chmod +x LT
+
 jobs:
-  say-hello:
-    # Specify the execution environment. You can specify an image from Dockerhub or use one of our Convenience Images from CircleCI's Developer Hub.
-    # See: https://circleci.com/docs/2.0/configuration-reference/#docker-machine-macos-windows-executor
+  build:
     docker:
-      - image: cimg/base:stable
-    # Add steps to the job
-    # See: https://circleci.com/docs/2.0/configuration-reference/#steps
+      - image: circleci/node:latest
     steps:
       - checkout
+      - install-tunnel-binary
+      
       - run:
-          name: "Say hello"
-          command: "echo Hello, World!"
+           name: "Executing tunnel binary"
+           background: true
+           command: |
+            #  ./LT -user ${LAMBDATEST_EMAIL} -key ${LAMBDATEST_KEY}
+             ./LT  --user dhanu.devops9907@gmail.com --key Rzh6Gt65tlWUzxdpP8lyOppCtKqfhZQezv57ibO8j1MMJ2Pyng
+             sleep 40
 
-# Invoke jobs via workflows
-# See: https://circleci.com/docs/2.0/configuration-reference/#workflows
+      - run: 
+          name: "Setup custom environment variables"
+          command: |
+            echo 'export LT_USERNAME="${LAMBDATEST_USERNAME}"' >> $BASH_ENV
+            echo 'export LT_ACCESS_KEY="${LAMBDATEST_ACCESS_KEY}"' >> $BASH_ENV
+
+      - run: # test what branch we're on.
+          name: "Here is the LT_Username : "
+          command: echo ${LT_USERNAME}
+
+      - run: npm install
+      
+      - run: node_modules/.bin/nightwatch -e chrome
 workflows:
-  say-hello-workflow:
+  browser-test:
     jobs:
-      - say-hello
+      - build 
