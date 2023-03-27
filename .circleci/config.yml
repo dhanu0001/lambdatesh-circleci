@@ -57,7 +57,7 @@ jobs:
 
       - run: npm install
       
-      - run: node_modules/.bin/nightwatch -e chrome
+      - run: node_modules/.bin/nightwatch -e chrome 
 workflows:
   browser-test:
     jobs:
