@@ -7,11 +7,11 @@ parameters:
   lambdatest_email:
         description: Specify your LambdaTest email
         type: string
-        default: ""
+        default: "LAMBDATEST_EMAIL"
   lambdatest_key:
         description: Specify environment var holding LambdaTest Access Key
         type: string
-        default: ""
+        default: "LAMBDATEST_KEY"
   # docker:
   #     type: string
   #     default: ""
