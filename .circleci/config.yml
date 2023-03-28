@@ -41,7 +41,7 @@ jobs:
            name: "Executing tunnel binary"
            background: true
            command: |
-             ./LT -user ${LAMBDATEST_EMAIL} -key ${LAMBDATEST_KEY}
+             ./LT -user << pipeline.parameters.lambdatest_email >> -key << pipeline.parameters.lambdatest_key >>
              sleep 40
 
       - run: 
