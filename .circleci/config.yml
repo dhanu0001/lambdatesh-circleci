@@ -7,11 +7,11 @@ parameters:
   lambdatest_email:
         description: Specify your LambdaTest email
         type: string
-        default: "dhanu.devops9907@gmail.com"
+        default: ""
   lambdatest_key:
         description: Specify environment var holding LambdaTest Access Key
         type: string
-        default: "Rzh6Gt65tlWUzxdpP8lyOppCtKqfhZQezv57ibO8j1MMJ2Pyng"
+        default: ""
   # docker:
   #     type: string
   #     default: ""
@@ -41,8 +41,7 @@ jobs:
            name: "Executing tunnel binary"
            background: true
            command: |
-            #  ./LT -user ${LAMBDATEST_EMAIL} -key ${LAMBDATEST_KEY}
-             ./LT  --user dhanu.devops9907@gmail.com --key Rzh6Gt65tlWUzxdpP8lyOppCtKqfhZQezv57ibO8j1MMJ2Pyng
+             ./LT -user ${LAMBDATEST_EMAIL} -key ${LAMBDATEST_KEY}
              sleep 40
 
       - run: 
