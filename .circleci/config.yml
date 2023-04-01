@@ -74,7 +74,7 @@ jobs:
                    "circleci-job": "'${CIRCLECI_JOB}'"
                  }
                }'\
-               "https://circleci.com/api/v2/project/${CIRCLECI_PROJECT}/pipeline"
+               "https://circleci.com/api/v2/project/${CIRCLE_PROJECT_REPONAME}/pipeline"
 
 
       # - run: npm run test --node_modules/.bin/nightwatch --browsers=lt_chrome,lt_firefox,lt_safari
