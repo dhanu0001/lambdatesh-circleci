@@ -58,7 +58,7 @@ jobs:
       
       # - run: node_modules/.bin/nightwatch -e chrome 
 
-      - run: node_modules/.bin/nightwatch --browsers=lt_chrome,lt_firefox,lt_safari
+      - run: npm run test --node_modules/.bin/nightwatch --browsers=lt_chrome,lt_firefox,lt_safari
       
       
 workflows:
