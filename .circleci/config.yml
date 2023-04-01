@@ -59,7 +59,7 @@ jobs:
       - run: node_modules/.bin/nightwatch -e chrome
 
       - run:
-          name:  Trigger the CircleCI job
+          name:  Trigger the CircleCI job 
           command: |
              echo "Triggering CircleCI job..."
              curl -u ${CIRCLECI_TOKEN}: \
