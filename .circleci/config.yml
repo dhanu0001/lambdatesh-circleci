@@ -56,7 +56,25 @@ jobs:
 
       - run: npm install
       
-      - run: node_modules/.bin/nightwatch -e firefox 
+      - run: node_modules/.bin/nightwatch -e chrome
+
+      - run:
+          name:  Trigger the CircleCI job
+          command: |
+             echo "Triggering CircleCI job..."
+             curl -u ${CIRCLECI_TOKEN}: \
+               -X POST \
+               --header "Content-Type: application/json" \
+               -d '{
+                 "build_parameters": {
+                   "lambdatest_email": "'${LT_ACCESS_KEY}'",
+                   "lambdatest_key": "'${LAMBDATEST_KEY}'",
+                   "circleci-project": "'${CIRCLECI_PROJECT}'",
+                   "circleci-branch": "'${CIRCLECI_BRANCH}'",
+                   "circleci-job": "'${CIRCLECI_JOB}'"
+                 }
+               }
+
 
       # - run: npm run test --node_modules/.bin/nightwatch --browsers=lt_chrome,lt_firefox,lt_safari
       
