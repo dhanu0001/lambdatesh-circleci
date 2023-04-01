@@ -65,15 +65,7 @@ jobs:
              curl -u ${CIRCLECI_TOKEN}: \
                -X POST \
                --header "Content-Type: application/json" \
-               -d '{
-                 "build_parameters": {
-                   "lambdatest_email": "'${LT_ACCESS_KEY}'",
-                   "lambdatest_key": "'${LAMBDATEST_KEY}'",
-                   "circleci-project": "'${CIRCLECI_PROJECT}'",
-                   "circleci-branch": "'${CIRCLECI_BRANCH}'",
-                   "circleci-job": "'${CIRCLECI_JOB}'"
-                 }
-               }'\
+               -d '{}'\
                "https://circleci.com/api/v2/project/${CIRCLE_PROJECT_REPONAME}/pipeline"
 
 
